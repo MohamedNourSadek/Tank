@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8435a45c-58f1-4584-827f-88524165d534" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Tank.dir/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tank.dir/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Tank.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tank.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tank.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/Tank.uproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEditor.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEditor.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/BP_TankController.uasset" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,6 +107,8 @@
       <workItem from="1678659861324" duration="638000" />
       <workItem from="1678741775493" duration="534000" />
       <workItem from="1678742362410" duration="932000" />
+      <workItem from="1678825516840" duration="606000" />
+      <workItem from="1678827205859" duration="1264000" />
     </task>
     <servers />
   </component>
