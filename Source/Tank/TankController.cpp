@@ -28,22 +28,35 @@ void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 	PlayerInputComponent->BindAxis("MoveY", this, &ATankController::InputYRecieved);
 	PlayerInputComponent->BindAxis("MoveX", this, &ATankController::InputXRecieved);
-
-
 }
+
 #pragma endregion
 
 #pragma region private functions
 void ATankController::InputYRecieved(float y)
 {
+	if(y == 0)
+	{
+		if(currentMovementSpeed >= 0)
+			currentMovementSpeed -= movementAcceleration;
+		else
+			currentMovementSpeed = 0;
+	}
+	else
+	{
+		if(abs(currentMovementSpeed) <= movementSpeed)
+			currentMovementSpeed += (y*movementAcceleration);
+	}
+	
 	auto currentLocation = GetActorLocation();
 	auto currentDirection = GetActorForwardVector();
-	SetActorLocation(currentLocation + (currentDirection * y * 20));		
+	
+	SetActorLocation(currentLocation + (currentDirection * currentMovementSpeed));		
 }
 
 void ATankController::InputXRecieved(float x)
 {
-	SetActorRotation(GetActorRotation() + FRotator(0,x,0));
+	SetActorRotation(GetActorRotation() + FRotator(0, rotationSpeed * x * .01f,0));
 }
 #pragma endregion 
 
