@@ -4,13 +4,7 @@
     <projectFile>Tank.uproject</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8435a45c-58f1-4584-827f-88524165d534" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Tank.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tank.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/Main/2/ML/3DYPBIBSAWAHOW8SN8EN9Z.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/Main/2/ML/3DYPBIBSAWAHOW8SN8EN9Z.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/Main/4/0G/8D0NSHLN6CNCWE7UO2PIXR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/Main/4/0G/8D0NSHLN6CNCWE7UO2PIXR.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Tank/TankController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tank/TankController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Tank/TankController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tank/TankController.h" afterDir="false" />
-    </list>
+    <list default="true" id="8435a45c-58f1-4584-827f-88524165d534" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -114,6 +108,7 @@
       <workItem from="1678825516840" duration="606000" />
       <workItem from="1678827205859" duration="1857000" />
       <workItem from="1678914437118" duration="6773000" />
+      <workItem from="1679274085511" duration="137000" />
     </task>
     <servers />
   </component>
