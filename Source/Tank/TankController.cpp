@@ -1,9 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "TankController.h"
-
-#include "Algo/Rotate.h"
 
 #pragma region Unreal Delgates
 ATankController::ATankController()
@@ -29,34 +24,74 @@ void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	PlayerInputComponent->BindAxis("MoveY", this, &ATankController::InputYRecieved);
 	PlayerInputComponent->BindAxis("MoveX", this, &ATankController::InputXRecieved);
 }
-
 #pragma endregion
 
-#pragma region private functions
-void ATankController::InputYRecieved(float y)
+#pragma region Input Callbacks
+void ATankController::InputYRecieved(float direction)
 {
-	if(y == 0)
-	{
-		if(currentMovementSpeed >= 0)
-			currentMovementSpeed -= movementAcceleration;
-		else
-			currentMovementSpeed = 0;
-	}
+	if(abs(direction) > 0)
+		Accelerate(direction);
 	else
+		Declerate();
+}
+void ATankController::InputXRecieved(float direction)
+{
+	if(abs(direction) > 0)
+		AccelerateRotationOverTime(direction);
+	else
+		DecelerationRotationOverTime();
+}
+#pragma endregion 
+
+#pragma region Movement Functions
+void ATankController::Accelerate(int direction)
+{
+	if(abs(currentMovementSpeed) <= movementSpeed)
+		currentMovementSpeed += (direction * movementAcceleration);
+
+	Translate();
+}
+void ATankController::Declerate()
+{
+	const int DirectionOfDeceleration = currentMovementSpeed / abs(currentMovementSpeed);
+
+	if(currentMovementSpeed > 0)
+		currentMovementSpeed -= (DirectionOfDeceleration*movementAcceleration);
+	else
+		currentMovementSpeed = 0;
+
+	Translate();
+}
+void ATankController::AccelerateRotationOverTime(int direction)
+{
+	if(abs(currentRotationSpeed) <= rotationSpeed)
 	{
-		if(abs(currentMovementSpeed) <= movementSpeed)
-			currentMovementSpeed += (y*movementAcceleration);
+		currentRotationSpeed += (direction*rotationAcceleration);
 	}
-	
+
+	Rotate();
+}
+void ATankController::DecelerationRotationOverTime()
+{
+	const int DirectionOfDeceleration = currentRotationSpeed / abs(currentRotationSpeed);
+
+	if(abs(currentRotationSpeed) > 0)
+		currentRotationSpeed -= (DirectionOfDeceleration * rotationAcceleration);
+	else
+		currentRotationSpeed = 0;
+
+	Rotate();
+}
+void ATankController::Translate()
+{
 	auto currentLocation = GetActorLocation();
 	auto currentDirection = GetActorForwardVector();
 	
-	SetActorLocation(currentLocation + (currentDirection * currentMovementSpeed));		
+	SetActorLocation(currentLocation + (currentDirection * currentMovementSpeed));	
 }
-
-void ATankController::InputXRecieved(float x)
+void ATankController::Rotate()
 {
-	SetActorRotation(GetActorRotation() + FRotator(0, rotationSpeed * x * .01f,0));
+	SetActorRotation(GetActorRotation() + FRotator(0, currentRotationSpeed * .01f,0));
 }
 #pragma endregion 
 

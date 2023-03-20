@@ -22,7 +22,12 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	void InputYRecieved(float y);
 	void InputXRecieved(float x);
-
+	void Accelerate(int direction);
+	void Declerate();
+	void AccelerateRotationOverTime(int direction);
+	void DecelerationRotationOverTime();
+	void Translate();
+	void Rotate();
 private:
 	UPROPERTY(EditAnywhere)	float movementAcceleration = 1;
 	UPROPERTY(EditAnywhere) float movementSpeed = 1;
