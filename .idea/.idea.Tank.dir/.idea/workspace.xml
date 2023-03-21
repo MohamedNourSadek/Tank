@@ -4,7 +4,12 @@
     <projectFile>Tank.uproject</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8435a45c-58f1-4584-827f-88524165d534" name="Changes" comment="" />
+    <list default="true" id="8435a45c-58f1-4584-827f-88524165d534" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Tank.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tank.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/BP_Tank.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/BP_Tank.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/Main/E/F6/5I75XKMYAW0IN3UE99AXG8.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/Main/E/F6/5I75XKMYAW0IN3UE99AXG8.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Tank/TankController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tank/TankController.cpp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,9 +33,9 @@
   },
   &quot;keyToStringList&quot;: {
     &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\moham\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\moham\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\moham\\AppData\\Local\\Symbols\\src&quot;
+      &quot;C:\\Users\\msi\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\msi\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\msi\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
 }</component>
@@ -40,9 +45,9 @@
       <configuration_2>
         <option name="CONFIGURATION" value="DebugGame Editor" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="C:\Program Files (x86)\UE_5.1\Engine\Binaries\Win64\UnrealEditor-Win64-DebugGame.exe" />
-        <option name="WORKING_DIRECTORY" value="C:\Program Files (x86)\UE_5.1" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Work Projects\Tank\Tank.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="E:\Unreal Engine 5\UE_5.1\Engine\Binaries\Win64\UnrealEditor-Win64-DebugGame.exe" />
+        <option name="WORKING_DIRECTORY" value="E:\Unreal Engine 5\UE_5.1" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Tank\Tank.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
@@ -50,8 +55,8 @@
       <configuration_3>
         <option name="CONFIGURATION" value="DebugGame" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="C:\Work Projects\Tank\Binaries\Win64\Tank-Win64-DebugGame.exe" />
-        <option name="WORKING_DIRECTORY" value="C:\Program Files (x86)\UE_5.1" />
+        <option name="EXECUTABLE_PATH" value="C:\Tank\Binaries\Win64\Tank-Win64-DebugGame.exe" />
+        <option name="WORKING_DIRECTORY" value="E:\Unreal Engine 5\UE_5.1" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
@@ -60,9 +65,9 @@
       <configuration_4>
         <option name="CONFIGURATION" value="Development Editor" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="C:\Program Files (x86)\UE_5.1\Engine\Binaries\Win64\UnrealEditor.exe" />
-        <option name="WORKING_DIRECTORY" value="C:\Program Files (x86)\UE_5.1" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Work Projects\Tank\Tank.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="E:\Unreal Engine 5\UE_5.1\Engine\Binaries\Win64\UnrealEditor.exe" />
+        <option name="WORKING_DIRECTORY" value="E:\Unreal Engine 5\UE_5.1" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Tank\Tank.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
@@ -70,8 +75,8 @@
       <configuration_5>
         <option name="CONFIGURATION" value="Development" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="C:\Work Projects\Tank\Binaries\Win64\Tank.exe" />
-        <option name="WORKING_DIRECTORY" value="C:\Program Files (x86)\UE_5.1" />
+        <option name="EXECUTABLE_PATH" value="C:\Tank\Binaries\Win64\Tank.exe" />
+        <option name="WORKING_DIRECTORY" value="E:\Unreal Engine 5\UE_5.1" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
@@ -80,8 +85,8 @@
       <configuration_6>
         <option name="CONFIGURATION" value="Shipping" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="C:\Work Projects\Tank\Binaries\Win64\Tank-Win64-Shipping.exe" />
-        <option name="WORKING_DIRECTORY" value="C:\Program Files (x86)\UE_5.1" />
+        <option name="EXECUTABLE_PATH" value="C:\Tank\Binaries\Win64\Tank-Win64-Shipping.exe" />
+        <option name="WORKING_DIRECTORY" value="E:\Unreal Engine 5\UE_5.1" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
@@ -109,6 +114,8 @@
       <workItem from="1678827205859" duration="1857000" />
       <workItem from="1678914437118" duration="6773000" />
       <workItem from="1679274085511" duration="137000" />
+      <workItem from="1679383888425" duration="156000" />
+      <workItem from="1679384059614" duration="610000" />
     </task>
     <servers />
   </component>
