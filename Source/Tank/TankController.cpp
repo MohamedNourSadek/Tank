@@ -15,7 +15,8 @@ void ATankController::BeginPlay()
 void ATankController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	UE_LOG(LogTemp, Display, TEXT("Tank Tick"));
+	deltaTime = DeltaTime;
+	UE_LOG(LogTemp, Display, TEXT("%f"), deltaTime);
 }
 void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -47,7 +48,7 @@ void ATankController::InputXRecieved(float direction)
 void ATankController::Accelerate(int direction)
 {
 	if(abs(currentMovementSpeed) <= movementSpeed)
-		currentMovementSpeed += (direction * movementAcceleration);
+		currentMovementSpeed += (direction  * movementAcceleration);
 
 	Translate();
 }
@@ -55,8 +56,8 @@ void ATankController::Declerate()
 {
 	const int DirectionOfDeceleration = currentMovementSpeed / abs(currentMovementSpeed);
 
-	if(currentMovementSpeed > 0)
-		currentMovementSpeed -= (DirectionOfDeceleration*movementAcceleration);
+	if(abs(currentMovementSpeed) > 0.01*movementSpeed)
+		currentMovementSpeed -= (DirectionOfDeceleration  *movementDeceleration);
 	else
 		currentMovementSpeed = 0;
 
@@ -66,7 +67,7 @@ void ATankController::AccelerateRotationOverTime(int direction)
 {
 	if(abs(currentRotationSpeed) <= rotationSpeed)
 	{
-		currentRotationSpeed += (direction*rotationAcceleration);
+		currentRotationSpeed += (direction  *rotationAcceleration);
 	}
 
 	Rotate();
@@ -75,8 +76,8 @@ void ATankController::DecelerationRotationOverTime()
 {
 	const int DirectionOfDeceleration = currentRotationSpeed / abs(currentRotationSpeed);
 
-	if(abs(currentRotationSpeed) > 0)
-		currentRotationSpeed -= (DirectionOfDeceleration * rotationAcceleration);
+	if(abs(currentRotationSpeed) >= .05*rotationSpeed)
+		currentRotationSpeed -= (DirectionOfDeceleration * rotationDeceleration);
 	else
 		currentRotationSpeed = 0;
 
@@ -87,11 +88,11 @@ void ATankController::Translate()
 	auto currentLocation = GetActorLocation();
 	auto currentDirection = GetActorForwardVector();
 	
-	SetActorLocation(currentLocation + (currentDirection * currentMovementSpeed));	
+	SetActorLocation(currentLocation + (currentDirection * currentMovementSpeed * deltaTime));	
 }
 void ATankController::Rotate()
 {
-	SetActorRotation(GetActorRotation() + FRotator(0, currentRotationSpeed * .01f,0));
+	SetActorRotation(GetActorRotation() + FRotator(0, currentRotationSpeed * deltaTime,0));
 }
 #pragma endregion 
 
