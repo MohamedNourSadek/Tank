@@ -16,7 +16,6 @@ void ATankController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	deltaTime = DeltaTime;
-	UE_LOG(LogTemp, Display, TEXT("%f"), deltaTime);
 }
 void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -50,7 +49,8 @@ void ATankController::Accelerate(int direction)
 	if(abs(currentMovementSpeed) <= movementSpeed)
 		currentMovementSpeed += (direction  * movementAcceleration);
 
-	Translate();
+	if(direction != 0)
+		Translate();
 }
 void ATankController::Declerate()
 {
@@ -60,8 +60,6 @@ void ATankController::Declerate()
 		currentMovementSpeed -= (DirectionOfDeceleration  *movementDeceleration);
 	else
 		currentMovementSpeed = 0;
-
-	Translate();
 }
 void ATankController::AccelerateRotationOverTime(int direction)
 {
@@ -87,8 +85,11 @@ void ATankController::Translate()
 {
 	auto currentLocation = GetActorLocation();
 	auto currentDirection = GetActorForwardVector();
-	
-	SetActorLocation(currentLocation + (currentDirection * currentMovementSpeed * deltaTime));	
+
+	UPrimitiveComponent* myBody = Cast<UPrimitiveComponent>(RootComponent);
+	//myBody->AddImpulse((currentDirection * currentMovementSpeed * deltaTime));
+	myBody->AddForce(FVector(0,1,0) * movementForce * deltaTime);
+	UE_LOG(LogTemp, Display, TEXT("Force is added"));
 }
 void ATankController::Rotate()
 {

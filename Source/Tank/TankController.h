@@ -29,6 +29,7 @@ public:
 	void Translate();
 	void Rotate();
 private:
+	UPROPERTY(EditAnywhere) int64 movementForce = 5000000000;
 	UPROPERTY(EditAnywhere)	float movementAcceleration = 1;
 	UPROPERTY(EditAnywhere) float movementDeceleration = 1;
 	UPROPERTY(EditAnywhere) float movementSpeed = 1;
