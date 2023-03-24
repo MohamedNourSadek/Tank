@@ -10,7 +10,7 @@ ATankController::ATankController()
 void ATankController::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	myBody = Cast<UPrimitiveComponent>(RootComponent);
 }
 void ATankController::Tick(float DeltaTime)
 {
@@ -29,71 +29,30 @@ void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 #pragma region Input Callbacks
 void ATankController::InputYRecieved(float direction)
 {
+	yInput = direction; 
 	if(abs(direction) > 0)
-		Accelerate(direction);
-	else
-		Declerate();
+		Translate(direction);
 }
 void ATankController::InputXRecieved(float direction)
 {
 	if(abs(direction) > 0)
-		AccelerateRotationOverTime(direction);
-	else
-		DecelerationRotationOverTime();
+	{
+		if(yInput < 0)
+			Rotate(-direction);
+		else
+			Rotate(direction);
+	}
 }
 #pragma endregion 
 
 #pragma region Movement Functions
-void ATankController::Accelerate(int direction)
+void ATankController::Translate(float direction)
 {
-	if(abs(currentMovementSpeed) <= movementSpeed)
-		currentMovementSpeed += (direction  * movementAcceleration);
-
-	if(direction != 0)
-		Translate();
+	myBody->AddForce(GetActorForwardVector() * direction * movementForce * deltaTime);
 }
-void ATankController::Declerate()
+void ATankController::Rotate(float direction)
 {
-	const int DirectionOfDeceleration = currentMovementSpeed / abs(currentMovementSpeed);
-
-	if(abs(currentMovementSpeed) > 0.01*movementSpeed)
-		currentMovementSpeed -= (DirectionOfDeceleration  *movementDeceleration);
-	else
-		currentMovementSpeed = 0;
-}
-void ATankController::AccelerateRotationOverTime(int direction)
-{
-	if(abs(currentRotationSpeed) <= rotationSpeed)
-	{
-		currentRotationSpeed += (direction  *rotationAcceleration);
-	}
-
-	Rotate();
-}
-void ATankController::DecelerationRotationOverTime()
-{
-	const int DirectionOfDeceleration = currentRotationSpeed / abs(currentRotationSpeed);
-
-	if(abs(currentRotationSpeed) >= .05*rotationSpeed)
-		currentRotationSpeed -= (DirectionOfDeceleration * rotationDeceleration);
-	else
-		currentRotationSpeed = 0;
-
-	Rotate();
-}
-void ATankController::Translate()
-{
-	auto currentLocation = GetActorLocation();
-	auto currentDirection = GetActorForwardVector();
-
-	UPrimitiveComponent* myBody = Cast<UPrimitiveComponent>(RootComponent);
-	//myBody->AddImpulse((currentDirection * currentMovementSpeed * deltaTime));
-	myBody->AddForce(FVector(0,1,0) * movementForce * deltaTime);
-	UE_LOG(LogTemp, Display, TEXT("Force is added"));
-}
-void ATankController::Rotate()
-{
-	SetActorRotation(GetActorRotation() + FRotator(0, currentRotationSpeed * deltaTime,0));
+	myBody->AddTorqueInRadians(rotationAxis * direction * rotationTorque * deltaTime);
 }
 #pragma endregion 
 
