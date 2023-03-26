@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8435a45c-58f1-4584-827f-88524165d534" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Tank.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tank.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/BP_TankSphereCollider.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/BP_TankSphereCollider.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/BP_Tank_CubeCollider.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/BP_Tank_CubeCollider.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/Main/2/KU/RK7QDMA6EOXXUNXO69GETE.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Tank/TankController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tank/TankController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/BP_TankSphereCollider.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/Main/C/WC/EASQE5FS6DM1T6FDBFJ5SO.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Tank/TankController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tank/TankController.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +118,7 @@
       <workItem from="1679383888425" duration="156000" />
       <workItem from="1679384059614" duration="610000" />
       <workItem from="1679517189724" duration="4088000" />
-      <workItem from="1679826890112" duration="2950000" />
+      <workItem from="1679826890112" duration="4357000" />
     </task>
     <servers />
   </component>
