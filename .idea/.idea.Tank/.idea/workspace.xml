@@ -8,9 +8,8 @@
     <list default="true" id="64c85850-82c7-44e8-8cd2-f4bd609ee662" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Tank/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tank/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/BP_Tank.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/Main/2/ML/3DYPBIBSAWAHOW8SN8EN9Z.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/Main/2/ML/3DYPBIBSAWAHOW8SN8EN9Z.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/Main/3/0A/DJ5VS81V0PLCLIZ4EBHYVL.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultInput.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultInput.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/BP_Tank_CubeCollider.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/BP_Tank_CubeCollider.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Tank/TankController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tank/TankController.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Tank/TankController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tank/TankController.h" afterDir="false" />
     </list>
@@ -172,6 +171,7 @@
       <workItem from="1679433359019" duration="228000" />
       <workItem from="1679433618543" duration="3266000" />
       <workItem from="1679596782233" duration="5361000" />
+      <workItem from="1679857295267" duration="6289000" />
     </task>
     <servers />
   </component>

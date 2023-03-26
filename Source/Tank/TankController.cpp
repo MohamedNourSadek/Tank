@@ -10,7 +10,18 @@ ATankController::ATankController()
 void ATankController::BeginPlay()
 {
 	Super::BeginPlay();
+
 	myBody = Cast<UPrimitiveComponent>(RootComponent);
+
+	auto myComponents = GetComponents();
+
+	for(auto component : myComponents)
+	{
+		if(component->GetName().Contains("tank top"))
+			tankTop = Cast<UStaticMeshComponent>(component);
+		else if(component->GetName().Contains("cannon"))
+			canon = Cast<UChildActorComponent>(component);
+	}
 }
 void ATankController::Tick(float DeltaTime)
 {
@@ -23,6 +34,8 @@ void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 	PlayerInputComponent->BindAxis("MoveY", this, &ATankController::InputYRecieved);
 	PlayerInputComponent->BindAxis("MoveX", this, &ATankController::InputXRecieved);
+	PlayerInputComponent->BindAxis("RotateX", this, &ATankController::RotateCannon);
+	PlayerInputComponent->BindAxis("RotateY", this, &ATankController::RotateCannonY);
 }
 #pragma endregion
 
@@ -52,7 +65,40 @@ void ATankController::Translate(float direction)
 }
 void ATankController::Rotate(float direction)
 {
-	myBody->AddTorqueInRadians(rotationAxis * direction * rotationTorque);
+	myBody->AddTorqueInRadians(tankRotationAxis * direction * rotationTorque);
 }
+void ATankController::RotateCannon(float direction)
+{
+	if(abs(direction) != 0)
+	{
+		if(currentCannonSpeed < 1)
+			currentCannonSpeed += cannonAcceleration * deltaTime;
+		else
+			currentCannonSpeed = 1;
+	}
+	else
+	{
+		if(currentCannonSpeed > 0)
+			currentCannonSpeed -= cannonAcceleration * deltaTime;
+		else
+			currentCannonSpeed = 0;
+	}
+
+	const FVector angle = currentCannonSpeed * FVector(0,1,0) * direction * tankTopMovementSpeed;
+	tankTop->AddWorldRotation(FRotator(angle.X, angle.Y, angle.Z));
+}
+void ATankController::RotateCannonY(float direction)
+{
+	float currentAngle = canon->GetRelativeRotation().Roll;
+	bool outOfNegativeBounds = (currentAngle < -10) && direction > 0;
+	bool outOfPositionBounds = (currentAngle > 10) && direction < 0;
+
+	if(!outOfNegativeBounds && !outOfPositionBounds)
+	{
+		const FVector angle = - FVector(0,0,1) * direction * cannonRotationSpeed;
+		canon->AddRelativeRotation(FRotator(angle.X, angle.Y, angle.Z));
+	}
+}
+
 #pragma endregion 
 

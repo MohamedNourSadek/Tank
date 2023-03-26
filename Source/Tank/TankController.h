@@ -10,8 +10,6 @@ UCLASS()
 class TANK_API ATankController : public APawn
 {
 	GENERATED_BODY()
-
-
 	
 protected:
 	virtual void BeginPlay() override;
@@ -24,13 +22,22 @@ public:
 	void InputXRecieved(float x);
 	void Translate(float direction);
 	void Rotate(float direction);
+	void RotateCannon(float direction);
+	void RotateCannonY(float direction);
 	
-private:
+public:
 	UPROPERTY(EditAnywhere) int64 movementForce = 5000000000;
 	UPROPERTY(EditAnywhere) float rotationTorque= 5000000;
+	UPROPERTY(EditAnywhere) float cannonAcceleration = 1;
+	UPROPERTY(EditAnywhere) float tankTopMovementSpeed = 0.15;
+	UPROPERTY(EditAnywhere) float cannonRotationSpeed = 5;
 	UPROPERTY(EditAnywhere) UPrimitiveComponent* myBody;
-	UPROPERTY(EditAnywhere) FVector rotationAxis;
-
+	UPROPERTY(EditAnywhere) FVector tankRotationAxis;
+	UPROPERTY(EditAnywhere) FVector tankTopRotationAxis;
+	UPROPERTY(EditAnywhere) UStaticMeshComponent* tankTop;
+	UPROPERTY(EditAnywhere) UChildActorComponent* canon;
+	
+	float currentCannonSpeed;
 	float deltaTime = 0;
 	float yInput = 0;
 };
