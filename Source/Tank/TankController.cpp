@@ -48,11 +48,11 @@ void ATankController::InputXRecieved(float direction)
 #pragma region Movement Functions
 void ATankController::Translate(float direction)
 {
-	myBody->AddForce(GetActorForwardVector() * direction * movementForce * deltaTime);
+	myBody->AddForce(GetActorForwardVector() * direction * movementForce);
 }
 void ATankController::Rotate(float direction)
 {
-	myBody->AddTorqueInRadians(rotationAxis * direction * rotationTorque * deltaTime);
+	myBody->AddTorqueInRadians(rotationAxis * direction * rotationTorque);
 }
 #pragma endregion 
 
