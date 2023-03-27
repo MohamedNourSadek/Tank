@@ -24,7 +24,6 @@ public:
 	void Rotate(float direction);
 	void RotateCannon(float direction);
 	void RotateCannonY(float direction);
-	void MouseXInputRecieved(float direction);	
 public:
 	UPROPERTY(EditAnywhere) int64 movementForce = 5000000000;
 	UPROPERTY(EditAnywhere) float rotationTorque= 5000000;
@@ -36,7 +35,9 @@ public:
 	UPROPERTY(EditAnywhere) FVector tankTopRotationAxis;
 	UPROPERTY(EditAnywhere) UStaticMeshComponent* tankTop;
 	UPROPERTY(EditAnywhere) UChildActorComponent* canon;
-	
+
+	APlayerController* myController;
+	USceneComponent* myCam;
 	float currentCannonSpeed;
 	float deltaTime = 0;
 	float yInput = 0;

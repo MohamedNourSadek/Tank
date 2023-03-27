@@ -1,5 +1,11 @@
 #include "TankController.h"
 
+
+
+float Remap(float value, float a, float b, float c, float d)
+{
+	return (value * ((d-c)/(b-a))) + c;
+}
 #pragma region Unreal Delgates
 ATankController::ATankController()
 {
@@ -21,14 +27,45 @@ void ATankController::BeginPlay()
 			tankTop = Cast<UStaticMeshComponent>(component);
 		else if(component->GetName().Contains("cannon"))
 			canon = Cast<UChildActorComponent>(component);
+		else if(component->GetName().Contains("Camera"))
+			myCam = Cast<USceneComponent>(component);
 	}
-
-	Cast<APlayerController>(GetController())->bShowMouseCursor = true;
+	myController = Cast<APlayerController>(GetController());
+	myController->bShowMouseCursor = true;
 }
 void ATankController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	deltaTime = DeltaTime;
+
+	float xPosition = 0;
+	float yPosition = 0;
+	myController->GetMousePosition(xPosition,yPosition);
+
+	FVector2D mouseRelativePosition;
+
+	if(GEngine && GEngine->GameViewport)
+	{
+		FVector2D mousePosition;
+		FVector2D screenSize;
+
+		GEngine->GameViewport->GetViewportSize(screenSize);
+		GEngine->GameViewport->GetMousePosition(mousePosition);
+
+		mouseRelativePosition = FVector2D(mousePosition.X/screenSize.X, mousePosition.Y/screenSize.Y);
+	}
+
+	FHitResult hit(ForceInit);
+
+	myController->GetHitResultUnderCursor(ECC_WorldStatic,true, hit);
+
+	UE_LOG(LogTemp, Display, TEXT("%f"), hit.ImpactPoint.Z);
+	
+	float directionX = Remap(mouseRelativePosition.X, 0,1, -1,1);
+	float directionY = Remap(mouseRelativePosition.Y, 0,1,-1.5,.5);
+	RotateCannon(directionX);
+	RotateCannonY(-directionY);
+
 }
 void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -36,9 +73,8 @@ void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 	PlayerInputComponent->BindAxis("MoveY", this, &ATankController::InputYRecieved);
 	PlayerInputComponent->BindAxis("MoveX", this, &ATankController::InputXRecieved);
-	PlayerInputComponent->BindAxis("RotateX", this, &ATankController::RotateCannon);
-	PlayerInputComponent->BindAxis("RotateY", this, &ATankController::RotateCannonY);
-	PlayerInputComponent->BindAxis("MouseX", this, &ATankController::MouseXInputRecieved);
+	//PlayerInputComponent->BindAxis("RotateX", this, &ATankController::RotateCannon);
+	//PlayerInputComponent->BindAxis("RotateY", this, &ATankController::RotateCannonY);
 }
 #pragma endregion
 
@@ -101,11 +137,6 @@ void ATankController::RotateCannonY(float direction)
 		const FVector angle = - FVector(0,0,1) * direction * cannonRotationSpeed;
 		canon->AddRelativeRotation(FRotator(angle.X, angle.Y, angle.Z));
 	}
-}
-void ATankController::MouseXInputRecieved(float direction)
-{
-	if(direction != 0)
-		UE_LOG(LogTemp, Display, TEXT("%f"), direction);
 }
 
 #pragma endregion 
