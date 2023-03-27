@@ -22,6 +22,8 @@ void ATankController::BeginPlay()
 		else if(component->GetName().Contains("cannon"))
 			canon = Cast<UChildActorComponent>(component);
 	}
+
+	Cast<APlayerController>(GetController())->bShowMouseCursor = true;
 }
 void ATankController::Tick(float DeltaTime)
 {
@@ -36,6 +38,7 @@ void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	PlayerInputComponent->BindAxis("MoveX", this, &ATankController::InputXRecieved);
 	PlayerInputComponent->BindAxis("RotateX", this, &ATankController::RotateCannon);
 	PlayerInputComponent->BindAxis("RotateY", this, &ATankController::RotateCannonY);
+	PlayerInputComponent->BindAxis("MouseX", this, &ATankController::MouseXInputRecieved);
 }
 #pragma endregion
 
@@ -98,6 +101,11 @@ void ATankController::RotateCannonY(float direction)
 		const FVector angle = - FVector(0,0,1) * direction * cannonRotationSpeed;
 		canon->AddRelativeRotation(FRotator(angle.X, angle.Y, angle.Z));
 	}
+}
+void ATankController::MouseXInputRecieved(float direction)
+{
+	if(direction != 0)
+		UE_LOG(LogTemp, Display, TEXT("%f"), direction);
 }
 
 #pragma endregion 

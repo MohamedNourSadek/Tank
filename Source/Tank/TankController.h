@@ -24,7 +24,7 @@ public:
 	void Rotate(float direction);
 	void RotateCannon(float direction);
 	void RotateCannonY(float direction);
-	
+	void MouseXInputRecieved(float direction);	
 public:
 	UPROPERTY(EditAnywhere) int64 movementForce = 5000000000;
 	UPROPERTY(EditAnywhere) float rotationTorque= 5000000;
