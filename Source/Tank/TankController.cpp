@@ -6,12 +6,11 @@ float Remap(float value, float a, float b, float c, float d)
 {
 	return (value * ((d-c)/(b-a))) + c;
 }
+
 #pragma region Unreal Delgates
 ATankController::ATankController()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 void ATankController::BeginPlay()
 {
@@ -30,6 +29,7 @@ void ATankController::BeginPlay()
 		else if(component->GetName().Contains("Camera"))
 			myCam = Cast<USceneComponent>(component);
 	}
+	
 	myController = Cast<APlayerController>(GetController());
 	myController->bShowMouseCursor = true;
 }
@@ -57,15 +57,22 @@ void ATankController::Tick(float DeltaTime)
 
 	FHitResult hit(ForceInit);
 
-	myController->GetHitResultUnderCursor(ECC_WorldStatic,true, hit);
+	myController->GetHitResultUnderCursor(ECC_Vehicle,true, hit);
 
-	UE_LOG(LogTemp, Display, TEXT("%f"), hit.ImpactPoint.Z);
+	/*
+	auto ToHitdirection = hit.ImpactPoint - canon->GetComponentLocation();
+	auto canonforward = canon->GetRightVector();
+	auto tankPlane = this->GetActorRightVector();
+
+	auto projectedVector = ToHitdirection - tankPlane;
+
+	auto angle = FMath::Acos(canonforward.GetSafeNormal().Dot(projectedVector.GetSafeNormal()));
+
+	UE_LOG(LogTemp, Display, TEXT("%f"), angle);
+	*/
 	
 	float directionX = Remap(mouseRelativePosition.X, 0,1, -1,1);
-	float directionY = Remap(mouseRelativePosition.Y, 0,1,-1.5,.5);
 	RotateCannon(directionX);
-	RotateCannonY(-directionY);
-
 }
 void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -138,6 +145,5 @@ void ATankController::RotateCannonY(float direction)
 		canon->AddRelativeRotation(FRotator(angle.X, angle.Y, angle.Z));
 	}
 }
-
 #pragma endregion 
 
