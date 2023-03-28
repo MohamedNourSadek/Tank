@@ -1,7 +1,5 @@
 #include "TankController.h"
 
-
-
 float Remap(float value, float a, float b, float c, float d)
 {
 	return (value * ((d-c)/(b-a))) + c;
@@ -31,51 +29,13 @@ void ATankController::BeginPlay()
 	}
 	
 	myController = Cast<APlayerController>(GetController());
-	myController->bShowMouseCursor = true;
 }
 void ATankController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	deltaTime = DeltaTime;
 
-	float xPosition = 0;
-	float yPosition = 0;
-	myController->GetMousePosition(xPosition,yPosition);
-
-	FVector2D mouseRelativePosition;
-
-	if(GEngine && GEngine->GameViewport)
-	{
-		FVector2D mousePosition;
-		FVector2D screenSize;
-
-		GEngine->GameViewport->GetViewportSize(screenSize);
-		GEngine->GameViewport->GetMousePosition(mousePosition);
-
-		mouseRelativePosition = FVector2D(mousePosition.X/screenSize.X, mousePosition.Y/screenSize.Y);
-	}
-
-	/*
-	FHitResult hit(ForceInit);
-
-	myController->GetHitResultUnderCursor(ECC_Vehicle,true, hit);
-
-	auto ToHitdirection = hit.ImpactPoint - canon->GetComponentLocation();
-	auto canonforward = canon->GetRightVector();
-	auto tankPlane = this->GetActorRightVector();
-
-	auto projectedVector = ToHitdirection - tankPlane;
-
-	auto angle = FMath::Acos(canonforward.GetSafeNormal().Dot(projectedVector.GetSafeNormal()));
-
-	UE_LOG(LogTemp, Display, TEXT("%f"), angle);
-	*/
-	
-	float directionX = Remap(mouseRelativePosition.X, 0,1, -1,1);
-	float directionY = Remap(mouseRelativePosition.Y+shiftScreen, 0,1,-1,1);
-
-	RotateCannon(directionX);
-	RotateCannonY(-directionY);
+	HandleMouseInput();
 }
 void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -83,8 +43,6 @@ void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 	PlayerInputComponent->BindAxis("MoveY", this, &ATankController::InputYRecieved);
 	PlayerInputComponent->BindAxis("MoveX", this, &ATankController::InputXRecieved);
-	//PlayerInputComponent->BindAxis("RotateX", this, &ATankController::RotateCannon);
-	//PlayerInputComponent->BindAxis("RotateY", this, &ATankController::RotateCannonY);
 }
 #pragma endregion
 
@@ -100,9 +58,9 @@ void ATankController::InputXRecieved(float direction)
 	if(abs(direction) > 0)
 	{
 		if(yInput < 0)
-			Rotate(-direction);
+			RotateTank(-direction);
 		else
-			Rotate(direction);
+			RotateTank(direction);
 	}
 }
 #pragma endregion 
@@ -112,11 +70,11 @@ void ATankController::Translate(float direction)
 {
 	myBody->AddForce(GetActorForwardVector() * direction * movementForce);
 }
-void ATankController::Rotate(float direction)
+void ATankController::RotateTank(float direction)
 {
 	myBody->AddTorqueInRadians(tankRotationAxis * direction * rotationTorque);
 }
-void ATankController::RotateCannon(float direction)
+void ATankController::RotateTankTop(float direction)
 {
 	if(abs(direction) != 0)
 	{
@@ -147,6 +105,31 @@ void ATankController::RotateCannonY(float direction)
 		const FVector angle = - FVector(0,0,1) * direction * cannonRotationSpeed;
 		canon->AddRelativeRotation(FRotator(angle.X, angle.Y, angle.Z));
 	}
+}
+void ATankController::HandleMouseInput()
+{
+	float xPosition = 0;
+	float yPosition = 0;
+	myController->GetMousePosition(xPosition,yPosition);
+
+	FVector2D mouseRelativePosition;
+
+	if(GEngine && GEngine->GameViewport)
+	{
+		FVector2D mousePosition;
+		FVector2D screenSize;
+
+		GEngine->GameViewport->GetViewportSize(screenSize);
+		GEngine->GameViewport->GetMousePosition(mousePosition);
+
+		mouseRelativePosition = FVector2D(mousePosition.X/screenSize.X, mousePosition.Y/screenSize.Y);
+	}
+
+	float directionX = Remap(mouseRelativePosition.X, 0,1, -1,1);
+	float directionY = Remap(mouseRelativePosition.Y+shiftScreen, 0,1,-1,1);
+
+	RotateTankTop(directionX);
+	RotateCannonY(-directionY);
 }
 #pragma endregion 
 

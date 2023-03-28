@@ -21,9 +21,10 @@ public:
 	void InputYRecieved(float y);
 	void InputXRecieved(float x);
 	void Translate(float direction);
-	void Rotate(float direction);
-	void RotateCannon(float direction);
+	void RotateTank(float direction);
+	void RotateTankTop(float direction);
 	void RotateCannonY(float direction);
+	void HandleMouseInput();
 public:
 	UPROPERTY(EditAnywhere) int64 movementForce = 5000000000;
 	UPROPERTY(EditAnywhere) float rotationTorque= 5000000;
