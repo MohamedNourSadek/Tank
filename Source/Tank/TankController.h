@@ -35,7 +35,8 @@ public:
 	UPROPERTY(EditAnywhere) FVector tankTopRotationAxis;
 	UPROPERTY(EditAnywhere) UStaticMeshComponent* tankTop;
 	UPROPERTY(EditAnywhere) UChildActorComponent* canon;
-
+	UPROPERTY(EditAnywhere) float shiftScreen;
+	
 	APlayerController* myController;
 	USceneComponent* myCam;
 	float currentCannonSpeed;

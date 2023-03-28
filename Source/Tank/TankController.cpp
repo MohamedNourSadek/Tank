@@ -55,11 +55,11 @@ void ATankController::Tick(float DeltaTime)
 		mouseRelativePosition = FVector2D(mousePosition.X/screenSize.X, mousePosition.Y/screenSize.Y);
 	}
 
+	/*
 	FHitResult hit(ForceInit);
 
 	myController->GetHitResultUnderCursor(ECC_Vehicle,true, hit);
 
-	/*
 	auto ToHitdirection = hit.ImpactPoint - canon->GetComponentLocation();
 	auto canonforward = canon->GetRightVector();
 	auto tankPlane = this->GetActorRightVector();
@@ -72,7 +72,10 @@ void ATankController::Tick(float DeltaTime)
 	*/
 	
 	float directionX = Remap(mouseRelativePosition.X, 0,1, -1,1);
+	float directionY = Remap(mouseRelativePosition.Y+shiftScreen, 0,1,-1,1);
+
 	RotateCannon(directionX);
+	RotateCannonY(-directionY);
 }
 void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
