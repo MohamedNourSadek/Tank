@@ -35,6 +35,9 @@ void ATankController::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	deltaTime = DeltaTime;
 
+	auto piece = (GetWorld()->SpawnActor(bullet, &firePosition->GetTransform()));
+
+	
 	HandleMouseInput();
 }
 void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

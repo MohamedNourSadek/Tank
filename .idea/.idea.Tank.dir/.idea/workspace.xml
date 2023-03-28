@@ -35,9 +35,9 @@
   },
   "keyToStringList": {
     "rider.external.source.directories": [
-      "C:\\Users\\msi\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\msi\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\msi\\AppData\\Local\\Symbols\\src"
+      "C:\\Users\\moham\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\moham\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\moham\\AppData\\Local\\Symbols\\src"
     ]
   }
 }]]></component>
@@ -47,9 +47,9 @@
       <configuration_2>
         <option name="CONFIGURATION" value="DebugGame Editor" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="E:\Unreal Engine 5\UE_5.1\Engine\Binaries\Win64\UnrealEditor-Win64-DebugGame.exe" />
-        <option name="WORKING_DIRECTORY" value="E:\Unreal Engine 5\UE_5.1" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Tank\Tank.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="C:\Program Files (x86)\UE_5.1\Engine\Binaries\Win64\UnrealEditor-Win64-DebugGame.exe" />
+        <option name="WORKING_DIRECTORY" value="C:\Program Files (x86)\UE_5.1" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Work Projects\Tank\Tank.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
@@ -57,8 +57,8 @@
       <configuration_3>
         <option name="CONFIGURATION" value="DebugGame" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="C:\Tank\Binaries\Win64\Tank-Win64-DebugGame.exe" />
-        <option name="WORKING_DIRECTORY" value="E:\Unreal Engine 5\UE_5.1" />
+        <option name="EXECUTABLE_PATH" value="C:\Work Projects\Tank\Binaries\Win64\Tank-Win64-DebugGame.exe" />
+        <option name="WORKING_DIRECTORY" value="C:\Program Files (x86)\UE_5.1" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
@@ -67,9 +67,9 @@
       <configuration_4>
         <option name="CONFIGURATION" value="Development Editor" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="E:\Unreal Engine 5\UE_5.1\Engine\Binaries\Win64\UnrealEditor.exe" />
-        <option name="WORKING_DIRECTORY" value="E:\Unreal Engine 5\UE_5.1" />
-        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Tank\Tank.uproject&quot;" />
+        <option name="EXECUTABLE_PATH" value="C:\Program Files (x86)\UE_5.1\Engine\Binaries\Win64\UnrealEditor.exe" />
+        <option name="WORKING_DIRECTORY" value="C:\Program Files (x86)\UE_5.1" />
+        <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Work Projects\Tank\Tank.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
@@ -77,8 +77,8 @@
       <configuration_5>
         <option name="CONFIGURATION" value="Development" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="C:\Tank\Binaries\Win64\Tank.exe" />
-        <option name="WORKING_DIRECTORY" value="E:\Unreal Engine 5\UE_5.1" />
+        <option name="EXECUTABLE_PATH" value="C:\Work Projects\Tank\Binaries\Win64\Tank.exe" />
+        <option name="WORKING_DIRECTORY" value="C:\Program Files (x86)\UE_5.1" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
@@ -87,8 +87,8 @@
       <configuration_6>
         <option name="CONFIGURATION" value="Shipping" />
         <option name="PLATFORM" value="Win64" />
-        <option name="EXECUTABLE_PATH" value="C:\Tank\Binaries\Win64\Tank-Win64-Shipping.exe" />
-        <option name="WORKING_DIRECTORY" value="E:\Unreal Engine 5\UE_5.1" />
+        <option name="EXECUTABLE_PATH" value="C:\Work Projects\Tank\Binaries\Win64\Tank-Win64-Shipping.exe" />
+        <option name="WORKING_DIRECTORY" value="C:\Program Files (x86)\UE_5.1" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="PASS_PARENT_ENVS" value="1" />
@@ -125,6 +125,7 @@
       <workItem from="1679954201231" duration="255000" />
       <workItem from="1679954567181" duration="2047000" />
       <workItem from="1679987211726" duration="2841000" />
+      <workItem from="1680040332366" duration="2484000" />
     </task>
     <servers />
   </component>

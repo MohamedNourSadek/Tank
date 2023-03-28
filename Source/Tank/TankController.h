@@ -37,6 +37,10 @@ public:
 	UPROPERTY(EditAnywhere) UStaticMeshComponent* tankTop;
 	UPROPERTY(EditAnywhere) UChildActorComponent* canon;
 	UPROPERTY(EditAnywhere) float shiftScreen;
+
+private:
+	UPROPERTY(EditAnywhere) AActor* bullet;
+	UPROPERTY(EditAnywhere) AActor* firePosition;
 	
 	APlayerController* myController;
 	USceneComponent* myCam;
