@@ -40,7 +40,8 @@ public:
 	UPROPERTY(EditAnywhere) float shiftScreen;
 	UPROPERTY(EditAnywhere) TSubclassOf<AActor> bullet;
 	UPROPERTY(EditAnywhere) UChildActorComponent* firePosition;
-
+	UPROPERTY(EditAnywhere) float BulletForce;
+	UPROPERTY(EditAnywhere) float reactionForceMultiplier;
 	
 	APlayerController* myController;
 	USceneComponent* myCam;

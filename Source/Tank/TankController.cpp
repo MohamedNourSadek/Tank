@@ -69,8 +69,12 @@ void ATankController::InputXRecieved(float direction)
 }
 void ATankController::MouseInput()
 {
-	AActor* x = Cast<AActor>(GetWorld()->SpawnActor(bullet, &firePosition->GetComponentTransform()));
-	UE_LOG(LogTemp, Display, TEXT("Mouse Clicked"));
+	const AActor* myBullet = Cast<AActor>(GetWorld()->SpawnActor(bullet, &firePosition->GetComponentTransform()));
+	UPrimitiveComponent* component = Cast<UPrimitiveComponent>(myBullet->GetComponentByClass(UPrimitiveComponent::StaticClass()));
+
+	const FVector force = BulletForce * canon->GetRightVector();
+	component->AddImpulse(force);
+	myBody->AddImpulse(-reactionForceMultiplier * force);
 }
 #pragma endregion 
 
