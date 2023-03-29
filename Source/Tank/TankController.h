@@ -24,6 +24,7 @@ public:
 	void RotateTank(float direction);
 	void RotateTankTop(float direction);
 	void RotateCannonY(float direction);
+	void MouseInput();
 	void HandleMouseInput();
 public:
 	UPROPERTY(EditAnywhere) int64 movementForce = 5000000000;
@@ -37,10 +38,9 @@ public:
 	UPROPERTY(EditAnywhere) UStaticMeshComponent* tankTop;
 	UPROPERTY(EditAnywhere) UChildActorComponent* canon;
 	UPROPERTY(EditAnywhere) float shiftScreen;
+	UPROPERTY(EditAnywhere) TSubclassOf<AActor> bullet;
+	UPROPERTY(EditAnywhere) UChildActorComponent* firePosition;
 
-private:
-	UPROPERTY(EditAnywhere) AActor* bullet;
-	UPROPERTY(EditAnywhere) AActor* firePosition;
 	
 	APlayerController* myController;
 	USceneComponent* myCam;

@@ -26,6 +26,8 @@ void ATankController::BeginPlay()
 			canon = Cast<UChildActorComponent>(component);
 		else if(component->GetName().Contains("Camera"))
 			myCam = Cast<USceneComponent>(component);
+		else if(component->GetName().Contains("FirePoint"))
+			firePosition = Cast<UChildActorComponent>(component);
 	}
 	
 	myController = Cast<APlayerController>(GetController());
@@ -35,9 +37,7 @@ void ATankController::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	deltaTime = DeltaTime;
 
-	auto piece = (GetWorld()->SpawnActor(bullet, &firePosition->GetTransform()));
 
-	
 	HandleMouseInput();
 }
 void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -46,6 +46,7 @@ void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 	PlayerInputComponent->BindAxis("MoveY", this, &ATankController::InputYRecieved);
 	PlayerInputComponent->BindAxis("MoveX", this, &ATankController::InputXRecieved);
+	PlayerInputComponent->BindAction("MouseClick", IE_Pressed, this, &ATankController::MouseInput);
 }
 #pragma endregion
 
@@ -65,6 +66,11 @@ void ATankController::InputXRecieved(float direction)
 		else
 			RotateTank(direction);
 	}
+}
+void ATankController::MouseInput()
+{
+	AActor* x = Cast<AActor>(GetWorld()->SpawnActor(bullet, &firePosition->GetComponentTransform()));
+	UE_LOG(LogTemp, Display, TEXT("Mouse Clicked"));
 }
 #pragma endregion 
 
