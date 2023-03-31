@@ -7,11 +7,10 @@
   <component name="ChangeListManager">
     <list default="true" id="64c85850-82c7-44e8-8cd2-f4bd609ee662" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Tank/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tank/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultInput.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultInput.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/BP_TankBullet.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprint/BP_Tank_CubeCollider.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/BP_Tank_CubeCollider.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/Main/6/YZ/QS3AO9ROR63FO3Q7X86LI3.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/Main/6/YZ/QS3AO9ROR63FO3Q7X86LI3.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Tank/TankController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tank/TankController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Tank/TankController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tank/TankController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Tank/Bullet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tank/Bullet.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,21 +25,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "XThreadsFramesViewSplitterKey": "0.5726257",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\Nour\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\Nour\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\Nour\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\Nour\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\Nour\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\Nour\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="C++ Project.Tank">
     <configuration name="Tank" type="CppProject" factoryName="C++ Project">
       <configuration_1>
@@ -173,6 +173,8 @@
       <workItem from="1679596782233" duration="5361000" />
       <workItem from="1679857295267" duration="6289000" />
       <workItem from="1679941477956" duration="5118000" />
+      <workItem from="1680288945007" duration="812000" />
+      <workItem from="1680289784701" duration="2093000" />
     </task>
     <servers />
   </component>
