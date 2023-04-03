@@ -36,8 +36,6 @@ void ATankController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	deltaTime = DeltaTime;
-
-
 	HandleMouseInput();
 }
 void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
