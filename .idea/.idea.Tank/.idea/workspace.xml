@@ -7,6 +7,13 @@
   <component name="ChangeListManager">
     <list default="true" id="64c85850-82c7-44e8-8cd2-f4bd609ee662" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Tank/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tank/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/BP_Tank_CubeCollider.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/BP_Tank_CubeCollider.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Particles/NewNiagaraEmitter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Particles/NewNiagaraEmitter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Particles/NewNiagaraEmitter_System.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Particles/NewNiagaraEmitter_System.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/Main/6/R4/J6LC3XDSJ5W6M0FH6PEPHV.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/Main/C/TL/I479T6BVIJLRG8EQMPFC9L.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/Main/C/TL/I479T6BVIJLRG8EQMPFC9L.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Tank/TankController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tank/TankController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Tank/TankController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tank/TankController.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +178,8 @@
       <workItem from="1679941477956" duration="5118000" />
       <workItem from="1680288945007" duration="812000" />
       <workItem from="1680289784701" duration="2452000" />
-      <workItem from="1680547119490" duration="635000" />
+      <workItem from="1680547119490" duration="2573000" />
+      <workItem from="1680634393150" duration="3005000" />
     </task>
     <servers />
   </component>

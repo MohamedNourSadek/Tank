@@ -42,7 +42,7 @@ public:
 	UPROPERTY(EditAnywhere) UChildActorComponent* firePosition;
 	UPROPERTY(EditAnywhere) float BulletForce;
 	UPROPERTY(EditAnywhere) float reactionForceMultiplier;
-	
+	UPROPERTY(EditAnywhere) TSubclassOf<AActor> fireParticles;
 	APlayerController* myController;
 	USceneComponent* myCam;
 	float currentCannonSpeed;

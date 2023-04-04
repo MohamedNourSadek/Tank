@@ -73,6 +73,9 @@ void ATankController::MouseInput()
 	const FVector force = BulletForce * canon->GetRightVector();
 	component->AddImpulse(force);
 	myBody->AddImpulse(-reactionForceMultiplier * force);
+
+	AActor* nigraFire = Cast<AActor>(GetWorld()->SpawnActor(fireParticles, &component->GetComponentTransform()));
+	nigraFire->AttachToComponent(component, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true));
 }
 #pragma endregion 
 
