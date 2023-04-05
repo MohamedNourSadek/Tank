@@ -1,9 +1,23 @@
 #include "TankController.h"
 
+#include "TankGameMode.h"
+#include "Kismet/GameplayStatics.h"
+
+
+#pragma region HelperFunctions
+
 float Remap(float value, float a, float b, float c, float d)
 {
 	return (value * ((d-c)/(b-a))) + c;
 }
+
+bool ATankController::CanFire()
+{
+	return timeSinceStartUpQuantize != lastFireSec;
+}
+
+#pragma endregion 
+
 
 #pragma region Unreal Delgates
 ATankController::ATankController()
@@ -36,7 +50,12 @@ void ATankController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	deltaTime = DeltaTime;
+	timeSinceStartUp += DeltaTime;
+	timeSinceStartUpQuantize = (int)(timeSinceStartUp/fireTime);
 	HandleMouseInput();
+
+	if(CanFire())
+		Cast<ATankGameMode>(UGameplayStatics::GetGameMode(this))->canFire = true;
 }
 void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -67,15 +86,21 @@ void ATankController::InputXRecieved(float direction)
 }
 void ATankController::MouseInput()
 {
-	const AActor* myBullet = Cast<AActor>(GetWorld()->SpawnActor(bullet, &firePosition->GetComponentTransform()));
-	UPrimitiveComponent* component = Cast<UPrimitiveComponent>(myBullet->GetComponentByClass(UPrimitiveComponent::StaticClass()));
+	if(CanFire())
+	{
+		lastFireSec = timeSinceStartUpQuantize;
+		Cast<ATankGameMode>(UGameplayStatics::GetGameMode(this))->canFire = false;
 
-	const FVector force = BulletForce * canon->GetRightVector();
-	component->AddImpulse(force);
-	myBody->AddImpulse(-reactionForceMultiplier * force);
+		const AActor* myBullet = Cast<AActor>(GetWorld()->SpawnActor(bullet, &firePosition->GetComponentTransform()));
+		UPrimitiveComponent* component = Cast<UPrimitiveComponent>(myBullet->GetComponentByClass(UPrimitiveComponent::StaticClass()));
 
-	AActor* nigraFire = Cast<AActor>(GetWorld()->SpawnActor(fireParticles, &component->GetComponentTransform()));
-	nigraFire->AttachToComponent(component, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true));
+		const FVector force = BulletForce * canon->GetRightVector();
+		component->AddImpulse(force);
+		myBody->AddImpulse(-reactionForceMultiplier * force);
+
+		AActor* nigraFire = Cast<AActor>(GetWorld()->SpawnActor(fireParticles, &component->GetComponentTransform()));
+		nigraFire->AttachToComponent(component, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true));
+	}
 }
 #pragma endregion 
 
@@ -146,4 +171,6 @@ void ATankController::HandleMouseInput()
 	RotateCannonY(-directionY);
 }
 #pragma endregion 
+
+
 

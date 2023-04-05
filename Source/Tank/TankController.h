@@ -26,6 +26,7 @@ public:
 	void RotateCannonY(float direction);
 	void MouseInput();
 	void HandleMouseInput();
+	bool CanFire();
 public:
 	UPROPERTY(EditAnywhere) int64 movementForce = 5000000000;
 	UPROPERTY(EditAnywhere) float rotationTorque= 5000000;
@@ -43,6 +44,12 @@ public:
 	UPROPERTY(EditAnywhere) float BulletForce;
 	UPROPERTY(EditAnywhere) float reactionForceMultiplier;
 	UPROPERTY(EditAnywhere) TSubclassOf<AActor> fireParticles;
+	UPROPERTY(EditAnywhere) float fireTime = 1.0f;
+
+	float timeSinceStartUp = 0.0f;
+	int timeSinceStartUpQuantize = 0;
+	int lastFireSec = -1;
+	
 	APlayerController* myController;
 	USceneComponent* myCam;
 	float currentCannonSpeed;
