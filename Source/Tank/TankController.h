@@ -10,51 +10,68 @@ UCLASS()
 class TANK_API ATankController : public APawn
 {
 	GENERATED_BODY()
-	
+
+#pragma region InputFunctions
+private:
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	void RecievedMoveX(float y);
+	void RecievedMoveY(float x) ;
+	void RecieveMouseX(float direction) ;
+	void RecieveMouseY(float direction) ;
+	void RecievedMouseLClick();
+#pragma endregion
+
+#pragma region Gameplay Functions
+private:
+	void FireCannon();
+	void Translate(float direction) ;
+	void RotateTank(float direction) ;
+	void RotateTankTop(float direction) ;
+	void RotateCannon(float direction) ;
+#pragma endregion 
+
+#pragma region Unreal Functions
 protected:
-	virtual void BeginPlay() override;
-	
-public:
 	ATankController();
 	virtual void Tick(float DeltaTime) override;
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	void InputYRecieved(float y);
-	void InputXRecieved(float x);
-	void Translate(float direction);
-	void RotateTank(float direction);
-	void RotateTankTop(float direction);
-	void RotateCannonY(float direction);
-	void RecieveMouseX(float direction);
-	void RecieveMouseY(float direction);
-	void MouseInput();
-	void HandleMouseInput();
-	bool CanFire();
-public:
+	virtual void BeginPlay() override;
+#pragma endregion 
+
+#pragma region Helper functions
+private:
+	bool CanFire() const;
+	void InitializeMyComponents();
+	void UpdateTimeVariables(const float& DeltaTime);
+	void UpdateUI();
+#pragma endregion 
+
+#pragma region Gameplay varialbes
 	UPROPERTY(EditAnywhere) int64 movementForce = 5000000000;
 	UPROPERTY(EditAnywhere) float rotationTorque= 5000000;
-	UPROPERTY(EditAnywhere) float cannonAcceleration = 1;
-	UPROPERTY(EditAnywhere) float tankTopMovementSpeed = 0.15;
-	UPROPERTY(EditAnywhere) float cannonRotationSpeed = 5;
-	UPROPERTY(EditAnywhere) UPrimitiveComponent* myBody;
+	UPROPERTY(EditAnywhere) float tankTopRotationalSpeed = 0.25;
+	UPROPERTY(EditAnywhere) float tankCannonRotationSpeed = 0.25;
 	UPROPERTY(EditAnywhere) FVector tankRotationAxis;
 	UPROPERTY(EditAnywhere) FVector tankTopRotationAxis;
-	UPROPERTY(EditAnywhere) UStaticMeshComponent* tankTop;
-	UPROPERTY(EditAnywhere) UChildActorComponent* canon;
-	UPROPERTY(EditAnywhere) float shiftScreen;
+	UPROPERTY(EditAnywhere) float bulletForce;
+	UPROPERTY(EditAnywhere) float reactionForceMultiplier;
+	UPROPERTY(EditAnywhere) float fireTime = 1.0f;
+#pragma endregion 
+
+#pragma region References
 	UPROPERTY(EditAnywhere) TSubclassOf<AActor> bullet;
 	UPROPERTY(EditAnywhere) UChildActorComponent* firePosition;
-	UPROPERTY(EditAnywhere) float BulletForce;
-	UPROPERTY(EditAnywhere) float reactionForceMultiplier;
 	UPROPERTY(EditAnywhere) TSubclassOf<AActor> fireParticles;
-	UPROPERTY(EditAnywhere) float fireTime = 1.0f;
+	UPrimitiveComponent* myBody;
+	UStaticMeshComponent* tankTop;
+	UChildActorComponent* canon;
+	USceneComponent* myCam;
+#pragma endregion
 
+#pragma region privateVariables
 	float timeSinceStartUp = 0.0f;
 	int timeSinceStartUpQuantize = 0;
 	int lastFireSec = -1;
-	
-	APlayerController* myController;
-	USceneComponent* myCam;
-	float currentCannonSpeed;
 	float deltaTime = 0;
 	float yInput = 0;
+#pragma endregion 
 };

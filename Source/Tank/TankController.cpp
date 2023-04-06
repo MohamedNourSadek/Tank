@@ -3,31 +3,17 @@
 #include "TankGameMode.h"
 #include "Kismet/GameplayStatics.h"
 
-
 #pragma region HelperFunctions
-
 float Remap(float value, float a, float b, float c, float d)
 {
 	return (value * ((d-c)/(b-a))) + c;
 }
-
-bool ATankController::CanFire()
+bool ATankController::CanFire() const
 {
 	return timeSinceStartUpQuantize != lastFireSec;
 }
-
-#pragma endregion 
-
-
-#pragma region Unreal Delgates
-ATankController::ATankController()
+void ATankController::InitializeMyComponents()
 {
-	PrimaryActorTick.bCanEverTick = true;
-}
-void ATankController::BeginPlay()
-{
-	Super::BeginPlay();
-
 	myBody = Cast<UPrimitiveComponent>(RootComponent);
 
 	auto myComponents = GetComponents();
@@ -43,41 +29,59 @@ void ATankController::BeginPlay()
 		else if(component->GetName().Contains("FirePoint"))
 			firePosition = Cast<UChildActorComponent>(component);
 	}
-	
-	myController = Cast<APlayerController>(GetController());
+}
+void ATankController::UpdateTimeVariables(const float& DeltaTime)
+{
+	deltaTime = DeltaTime;
+	timeSinceStartUp += DeltaTime;
+	timeSinceStartUpQuantize = (int)(timeSinceStartUp/fireTime);
+}
+void ATankController::UpdateUI()
+{
+	if(CanFire())
+		Cast<ATankGameMode>(UGameplayStatics::GetGameMode(this))->canFire = true;
+}
+#pragma endregion 
+
+#pragma region Unreal Delgates
+ATankController::ATankController()
+{
+	PrimaryActorTick.bCanEverTick = true;
+}
+void ATankController::BeginPlay()
+{
+	Super::BeginPlay();
+	InitializeMyComponents();
 }
 void ATankController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	deltaTime = DeltaTime;
-	timeSinceStartUp += DeltaTime;
-	timeSinceStartUpQuantize = (int)(timeSinceStartUp/fireTime);
-	//HandleMouseInput();
 
-	if(CanFire())
-		Cast<ATankGameMode>(UGameplayStatics::GetGameMode(this))->canFire = true;
+	UpdateTimeVariables(DeltaTime);
+	UpdateUI();
 }
 void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	PlayerInputComponent->BindAxis("MoveY", this, &ATankController::InputYRecieved);
-	PlayerInputComponent->BindAxis("MoveX", this, &ATankController::InputXRecieved);
-	PlayerInputComponent->BindAction("MouseClick", IE_Pressed, this, &ATankController::MouseInput);
+	PlayerInputComponent->BindAxis("MoveY", this, &ATankController::RecievedMoveX);
+	PlayerInputComponent->BindAxis("MoveX", this, &ATankController::RecievedMoveY);
 	PlayerInputComponent->BindAxis("MouseX", this, &ATankController::RecieveMouseX);
 	PlayerInputComponent->BindAxis("MouseY", this, &ATankController::RecieveMouseY);
+	PlayerInputComponent->BindAction("MouseClick", IE_Pressed, this, &ATankController::RecievedMouseLClick);
 }  
 #pragma endregion
 
 #pragma region Input Callbacks
-void ATankController::InputYRecieved(float direction)
+void ATankController::RecievedMoveX(float direction)
 {
-	yInput = direction; 
+	yInput = direction;
+	
 	if(abs(direction) > 0)
 		Translate(direction);
 }
-void ATankController::InputXRecieved(float direction)
-{
+void ATankController::RecievedMoveY(float direction) {
+
 	if(abs(direction) > 0)
 	{
 		if(yInput < 0)
@@ -86,41 +90,38 @@ void ATankController::InputXRecieved(float direction)
 			RotateTank(direction);
 	}
 }
-void ATankController::MouseInput()
+void ATankController::RecieveMouseX(float direction) 
+{
+	RotateTankTop(direction);
+}
+void ATankController::RecieveMouseY(float direction) 
+{
+	RotateCannon(direction);
+}
+void ATankController::RecievedMouseLClick()
 {
 	if(CanFire())
 	{
-		lastFireSec = timeSinceStartUpQuantize;
-		Cast<ATankGameMode>(UGameplayStatics::GetGameMode(this))->canFire = false;
-
-		const AActor* myBullet = Cast<AActor>(GetWorld()->SpawnActor(bullet, &firePosition->GetComponentTransform()));
-		UPrimitiveComponent* component = Cast<UPrimitiveComponent>(myBullet->GetComponentByClass(UPrimitiveComponent::StaticClass()));
-
-		const FVector force = BulletForce * canon->GetRightVector();
-		component->AddImpulse(force);
-		myBody->AddImpulse(-reactionForceMultiplier * force);
-
-		AActor* nigraFire = Cast<AActor>(GetWorld()->SpawnActor(fireParticles, &component->GetComponentTransform()));
-		nigraFire->AttachToComponent(component, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true));
+		FireCannon();
 	}
 }
-#pragma endregion 
+#pragma endregion
 
 #pragma region Movement Functions
-void ATankController::Translate(float direction)
+void ATankController::Translate(float direction) 
 {
 	myBody->AddForce(GetActorForwardVector() * direction * movementForce);
 }
-void ATankController::RotateTank(float direction)
+void ATankController::RotateTank(float direction) 
 {
 	myBody->AddTorqueInRadians(tankRotationAxis * direction * rotationTorque);
 }
-void ATankController::RotateTankTop(float direction)
+void ATankController::RotateTankTop(float direction) 
 {
-	const FVector angle = cannonAcceleration * direction * FVector(0,1,0) * tankTopMovementSpeed;
+	const FVector angle = tankTopRotationalSpeed * direction * FVector(0,1,0);
 	tankTop->AddWorldRotation(FRotator(angle.X, angle.Y, angle.Z));
 }
-void ATankController::RotateCannonY(float direction)
+void ATankController::RotateCannon(float direction) 
 {
 	float currentAngle = canon->GetRelativeRotation().Roll;
 	bool outOfNegativeBounds = (currentAngle < -10) && direction > 0;
@@ -128,44 +129,24 @@ void ATankController::RotateCannonY(float direction)
 
 	if(!outOfNegativeBounds && !outOfPositionBounds)
 	{
-		const FVector angle = - FVector(0,0,1) * direction * cannonRotationSpeed;
+		const FVector angle = - FVector(0,0,1) * direction * tankCannonRotationSpeed;
 		canon->AddRelativeRotation(FRotator(angle.X, angle.Y, angle.Z));
 	}
 }
-void ATankController::RecieveMouseX(float direction)
+void ATankController::FireCannon()
 {
-	RotateTankTop(direction);
-}
-void ATankController::RecieveMouseY(float direction)
-{
-	RotateCannonY(direction);
-}
+	lastFireSec = timeSinceStartUpQuantize;
+	Cast<ATankGameMode>(UGameplayStatics::GetGameMode(this))->canFire = false;
 
+	const AActor* myBullet = Cast<AActor>(GetWorld()->SpawnActor(bullet, &firePosition->GetComponentTransform()));
+	UPrimitiveComponent* component = Cast<UPrimitiveComponent>(myBullet->GetComponentByClass(UPrimitiveComponent::StaticClass()));
 
-void ATankController::HandleMouseInput()
-{
-	float xPosition = 0;
-	float yPosition = 0;
-	myController->GetMousePosition(xPosition,yPosition);
+	const FVector force = bulletForce * canon->GetRightVector();
+	component->AddImpulse(force);
+	myBody->AddImpulse(-reactionForceMultiplier * force);
 
-	FVector2D mouseRelativePosition;
-
-	if(GEngine && GEngine->GameViewport)
-	{
-		FVector2D mousePosition;
-		FVector2D screenSize;
-
-		GEngine->GameViewport->GetViewportSize(screenSize);
-		GEngine->GameViewport->GetMousePosition(mousePosition);
-
-		mouseRelativePosition = FVector2D(mousePosition.X/screenSize.X, mousePosition.Y/screenSize.Y);
-	}
-
-	float directionX = Remap(mouseRelativePosition.X, 0,1, -1,1);
-	float directionY = Remap(mouseRelativePosition.Y+shiftScreen, 0,1,-1,1);
-
-	RotateTankTop(directionX);
-	RotateCannonY(-directionY);
+	AActor* nigraFire = Cast<AActor>(GetWorld()->SpawnActor(fireParticles, &component->GetComponentTransform()));
+	nigraFire->AttachToComponent(component, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true));
 }
 #pragma endregion 
 
