@@ -24,6 +24,8 @@ public:
 	void RotateTank(float direction);
 	void RotateTankTop(float direction);
 	void RotateCannonY(float direction);
+	void RecieveMouseX(float direction);
+	void RecieveMouseY(float direction);
 	void MouseInput();
 	void HandleMouseInput();
 	bool CanFire();

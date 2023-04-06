@@ -52,7 +52,7 @@ void ATankController::Tick(float DeltaTime)
 	deltaTime = DeltaTime;
 	timeSinceStartUp += DeltaTime;
 	timeSinceStartUpQuantize = (int)(timeSinceStartUp/fireTime);
-	HandleMouseInput();
+	//HandleMouseInput();
 
 	if(CanFire())
 		Cast<ATankGameMode>(UGameplayStatics::GetGameMode(this))->canFire = true;
@@ -64,7 +64,9 @@ void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	PlayerInputComponent->BindAxis("MoveY", this, &ATankController::InputYRecieved);
 	PlayerInputComponent->BindAxis("MoveX", this, &ATankController::InputXRecieved);
 	PlayerInputComponent->BindAction("MouseClick", IE_Pressed, this, &ATankController::MouseInput);
-}
+	PlayerInputComponent->BindAxis("MouseX", this, &ATankController::RecieveMouseX);
+	PlayerInputComponent->BindAxis("MouseY", this, &ATankController::RecieveMouseY);
+}  
 #pragma endregion
 
 #pragma region Input Callbacks
@@ -115,22 +117,7 @@ void ATankController::RotateTank(float direction)
 }
 void ATankController::RotateTankTop(float direction)
 {
-	if(abs(direction) != 0)
-	{
-		if(currentCannonSpeed < 1)
-			currentCannonSpeed += cannonAcceleration * deltaTime;
-		else
-			currentCannonSpeed = 1;
-	}
-	else
-	{
-		if(currentCannonSpeed > 0)
-			currentCannonSpeed -= cannonAcceleration * deltaTime;
-		else
-			currentCannonSpeed = 0;
-	}
-
-	const FVector angle = currentCannonSpeed * FVector(0,1,0) * direction * tankTopMovementSpeed;
+	const FVector angle = cannonAcceleration * direction * FVector(0,1,0) * tankTopMovementSpeed;
 	tankTop->AddWorldRotation(FRotator(angle.X, angle.Y, angle.Z));
 }
 void ATankController::RotateCannonY(float direction)
@@ -145,6 +132,16 @@ void ATankController::RotateCannonY(float direction)
 		canon->AddRelativeRotation(FRotator(angle.X, angle.Y, angle.Z));
 	}
 }
+void ATankController::RecieveMouseX(float direction)
+{
+	RotateTankTop(direction);
+}
+void ATankController::RecieveMouseY(float direction)
+{
+	RotateCannonY(direction);
+}
+
+
 void ATankController::HandleMouseInput()
 {
 	float xPosition = 0;
