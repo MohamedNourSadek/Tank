@@ -35,6 +35,8 @@ void ATankController::UpdateTimeVariables(const float& DeltaTime)
 	deltaTime = DeltaTime;
 	timeSinceStartUp += DeltaTime;
 	timeSinceStartUpQuantize = (int)(timeSinceStartUp/fireTime);
+	currentSpeed = myBody->GetComponentVelocity().Size();
+	currentRotationalSpeed = myBody->GetPhysicsAngularVelocityInRadians().Size();
 }
 void ATankController::UpdateUI()
 {

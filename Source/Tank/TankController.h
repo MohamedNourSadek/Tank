@@ -55,9 +55,13 @@ private:
 	UPROPERTY(EditAnywhere) float bulletForce;
 	UPROPERTY(EditAnywhere) float reactionForceMultiplier;
 	UPROPERTY(EditAnywhere) float fireTime = 1.0f;
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float currentSpeed = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float currentRotationalSpeed = 0;
 #pragma endregion 
 
 #pragma region References
+private:
 	UPROPERTY(EditAnywhere) TSubclassOf<AActor> bullet;
 	UPROPERTY(EditAnywhere) UChildActorComponent* firePosition;
 	UPROPERTY(EditAnywhere) TSubclassOf<AActor> fireParticles;
