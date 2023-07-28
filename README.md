@@ -1,8 +1,15 @@
 # Tank
-A Small unreal engine and C++ project to learn more about them.
+A Small unreal engine and C++ project in which you can:
+- Move with the tank in 3D Directions.
+- Rotate the tank's canon and Aim.
+- Shoot and affect other objects as well as a reaction force for the tank.
+- Have explosion particle system spawn on collision.
+
 
 #### Video of the play test of the game:
-https://youtu.be/g74ezfGwtUg
+[Youtube Video Demo](https://youtu.be/g74ezfGwtUg)
 
-![App Screenshot](https://github.com/MohamedNourSadek/Tank/blob/main/Pictures/1.png)
-![App Screenshot](https://github.com/MohamedNourSadek/Tank/blob/main/Pictures/2.png)
+
+### Screenshots from the Game:
+| ![ScreenShot1](https://github.com/MohamedNourSadek/Tank/blob/main/Pictures/1.png) | ![ScreenShot2](https://github.com/MohamedNourSadek/Tank/blob/main/Pictures/2.png) |
+|--|--
