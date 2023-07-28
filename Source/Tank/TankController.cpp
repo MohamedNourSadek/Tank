@@ -4,10 +4,6 @@
 #include "Kismet/GameplayStatics.h"
 
 #pragma region HelperFunctions
-float Remap(float value, float a, float b, float c, float d)
-{
-	return (value * ((d-c)/(b-a))) + c;
-}
 bool ATankController::CanFire() const
 {
 	return timeSinceStartUpQuantize != lastFireSec;
@@ -29,6 +25,8 @@ void ATankController::InitializeMyComponents()
 		else if(component->GetName().Contains("FirePoint"))
 			firePosition = Cast<UChildActorComponent>(component);
 	}
+
+	gameMode = Cast<ATankGameMode>(UGameplayStatics::GetGameMode(this));
 }
 void ATankController::UpdateTimeVariables(const float& DeltaTime)
 {
@@ -40,8 +38,8 @@ void ATankController::UpdateTimeVariables(const float& DeltaTime)
 }
 void ATankController::UpdateUI()
 {
-	if(CanFire())
-		Cast<ATankGameMode>(UGameplayStatics::GetGameMode(this))->canFire = true;
+	if(CanFire() && gameMode != nullptr)
+		gameMode->canFire = true;
 }
 #pragma endregion 
 
@@ -66,8 +64,8 @@ void ATankController::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	PlayerInputComponent->BindAxis("MoveY", this, &ATankController::RecievedMoveX);
 	PlayerInputComponent->BindAxis("MoveX", this, &ATankController::RecievedMoveY);
+	PlayerInputComponent->BindAxis("MoveY", this, &ATankController::RecievedMoveX);
 	PlayerInputComponent->BindAxis("MouseX", this, &ATankController::RecieveMouseX);
 	PlayerInputComponent->BindAxis("MouseY", this, &ATankController::RecieveMouseY);
 	PlayerInputComponent->BindAction("MouseClick", IE_Pressed, this, &ATankController::RecievedMouseLClick);
@@ -120,7 +118,7 @@ void ATankController::RotateTank(float direction)
 }
 void ATankController::RotateTankTop(float direction) 
 {
-	const FVector angle = tankTopRotationalSpeed * direction * FVector(0,1,0);
+	const FVector angle = tankTopRotationalSpeed * direction * FVector::RightVector;
 	tankTop->AddWorldRotation(FRotator(angle.X, angle.Y, angle.Z));
 }
 void ATankController::RotateCannon(float direction) 
@@ -138,14 +136,16 @@ void ATankController::RotateCannon(float direction)
 void ATankController::FireCannon()
 {
 	lastFireSec = timeSinceStartUpQuantize;
-	Cast<ATankGameMode>(UGameplayStatics::GetGameMode(this))->canFire = false;
+	
+	if(gameMode != nullptr)
+		gameMode->canFire = false;
 
 	const AActor* myBullet = Cast<AActor>(GetWorld()->SpawnActor(bullet, &firePosition->GetComponentTransform()));
 	UPrimitiveComponent* component = Cast<UPrimitiveComponent>(myBullet->GetComponentByClass(UPrimitiveComponent::StaticClass()));
 
-	const FVector force = bulletForce * canon->GetRightVector();
-	component->AddImpulse(force);
-	myBody->AddImpulse(-reactionForceMultiplier * force);
+	const FVector forceVector = bulletForce * canon->GetRightVector();
+	component->AddImpulse(forceVector);
+	myBody->AddImpulse(-reactionForceMultiplier * forceVector);
 
 	AActor* nigraFire = Cast<AActor>(GetWorld()->SpawnActor(fireParticles, &component->GetComponentTransform()));
 	nigraFire->AttachToComponent(component, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true));

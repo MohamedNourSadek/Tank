@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "TankGameMode.h"
 #include "TankController.generated.h"
 
 UCLASS()
@@ -69,6 +70,8 @@ private:
 	UStaticMeshComponent* tankTop;
 	UChildActorComponent* canon;
 	USceneComponent* myCam;
+	ATankGameMode* gameMode;
+
 #pragma endregion
 
 #pragma region privateVariables
